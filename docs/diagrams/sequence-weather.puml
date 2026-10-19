@@ -1,0 +1,57 @@
+@startuml sequence-weather
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam ParticipantBackgroundColor #FFFFF0
+skinparam ActorBackgroundColor #FFFFF0
+title Приём метеосводки и автоматический перенос пуска
+
+actor "Метеоролог" as U
+box "View" #F4F7FF
+participant "Страница пуска\n(launchPage)" as V
+end box
+box "Controller" #FFF8EC
+participant "WeatherController" as C
+end box
+box "Model" #F1FAF4
+participant "WeatherService" as S
+participant "WeatherReport" as R
+participant "WeatherAssessment" as A
+participant "Launch" as L
+participant "Репозитории\n(SQLite)" as DB
+end box
+
+U -> V : заполняет форму сводки\n(ветер, температура, облачность, гроза)
+V -> C : POST /launches/:id/weather
+C -> S : record(user, launchId, данные)
+S -> S : user.require(Метеоролог)
+S -> R : WeatherReport.create(данные, now)
+R --> S : сводка | DomainError (диапазон, время в будущем)
+S -> DB : BEGIN; findById(launchId)
+DB --> S : Launch
+alt пуск уже проведён
+  S --> C : DomainError «Пуск уже проведён»
+end
+S -> DB : weather.insert(сводка)
+S -> DB : vehicleType(тип носителя)
+DB --> S : предельные значения
+S -> A : violations(сводка, пределы)
+A -> A : каждый WeatherCriterion.check()
+A --> S : список нарушений
+alt нарушений нет
+  S -> DB : COMMIT
+  S --> C : { violations: [], postponedTo: null }
+  C --> V : redirect + «метеоусловия допустимы»
+else есть превышения
+  S -> L : postpone(окно + 24 ч)
+  L -> L : проверка: новое окно позже,\nв будущем, длительность ≤ 12 ч
+  L --> S : прежнее начало окна
+  S -> DB : launches.update(launch)
+  S -> DB : addPostponement(категория «Метеоусловия»,\nпричина = нарушения, ссылка на сводку)
+  S -> DB : COMMIT
+  S --> C : { violations, postponedTo }
+  C --> V : redirect + предупреждение\n«Пуск перенесён на …»
+end
+V --> U : карточка пуска с журналом переносов
+@enduml

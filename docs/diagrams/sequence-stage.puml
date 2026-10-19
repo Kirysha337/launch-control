@@ -1,0 +1,50 @@
+@startuml sequence-stage
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam sequenceMessageAlign center
+skinparam ParticipantBackgroundColor #FFFFF0
+skinparam ActorBackgroundColor #FFFFF0
+title Завершение этапа подготовки (транспортировка на стартовый комплекс)
+
+actor "Инженер ТК" as U
+box "View" #F4F7FF
+participant "Страница пуска" as V
+end box
+box "Controller" #FFF8EC
+participant "LaunchController" as C
+end box
+box "Model" #F1FAF4
+participant "LaunchService" as S
+participant "Launch" as L
+participant "TransportStage" as ST
+participant "PadRepository /\nLaunchRepository" as DB
+end box
+
+U -> V : нажимает «Завершить этап»
+V -> C : POST /launches/:id/stage
+C -> S : completeStage(user, id)
+S -> S : user.require(Инженер)
+S -> DB : BEGIN; findById(id)
+DB --> S : Launch (статус «Подготовка», пройдено этапов: 1)
+S -> DB : pads.findById(padId)
+DB --> S : LaunchPad (занятость, моточасы и циклы\nс последнего обслуживания)
+S -> DB : fuelKindsConsumed(id)
+S -> L : completeStage(контекст площадки и топлива)
+L -> L : currentStage = STAGES[1]
+L -> ST : checkCompletion(контекст)
+alt выработан норматив моточасов или циклов
+  ST --> C : DomainError «сначала проведите обслуживание»
+else на площадке уже максимум подготовок
+  ST --> C : DomainError «площадка занята: N из M»
+else условия выполнены
+  ST --> L : ok
+  L -> L : completedStages = 2\n(после 4-го этапа статус «Готов к пуску»)
+  L --> S : пройденный этап
+  S -> DB : addStage(id, 2, user, now)
+  S -> DB : launches.update(launch); COMMIT
+  S --> C : этап
+end
+C --> V : redirect + сообщение (успех или текст ошибки)
+V --> U : обновлённая шкала этапов
+@enduml

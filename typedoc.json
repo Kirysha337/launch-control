@@ -1,0 +1,7 @@
+{
+  "entryPoints": ["src/model"],
+  "entryPointStrategy": "expand",
+  "out": "docs/api",
+  "name": "ЦУП «Старт» — модель предметной области",
+  "excludePrivate": true
+}

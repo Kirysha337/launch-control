@@ -1,0 +1,167 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1900" height="1260" viewBox="0 0 1900 1260">
+<defs>
+  <marker id="arrow" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,1 L10,5 L0,9 z" fill="#000"/></marker>
+  <marker id="open" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="9" markerHeight="9" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10" fill="none" stroke="#000" stroke-width="1.3"/></marker>
+  <marker id="tri" viewBox="0 0 12 12" refX="12" refY="6" markerWidth="13" markerHeight="13" orient="auto-start-reverse"><path d="M0,0 L12,6 L0,12 z" fill="#fff" stroke="#000" stroke-width="1.1"/></marker>
+  <marker id="dot" viewBox="0 0 10 10" refX="5" refY="5" markerWidth="8" markerHeight="8"><circle cx="5" cy="5" r="4.2" fill="#000"/></marker>
+  <marker id="diamond" viewBox="0 0 14 10" refX="1" refY="5" markerWidth="12" markerHeight="9" orient="auto-start-reverse"><path d="M1,5 L7,1 L13,5 L7,9 z" fill="#fff" stroke="#000" stroke-width="1.1"/></marker>
+</defs>
+<rect width="100%" height="100%" fill="#fff"/>
+<rect x="20" y="60" width="200" height="300" rx="0" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<text x="120.0" y="206.2" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">Руководитель</text>
+<text x="120.0" y="223.7" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">центра</text>
+<rect x="20" y="420" width="200" height="240" rx="0" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<text x="120.0" y="527.4" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">Инженер</text>
+<text x="120.0" y="544.9" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">технического</text>
+<text x="120.0" y="562.4" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">комплекса</text>
+<rect x="20" y="720" width="200" height="170" rx="0" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<text x="120.0" y="809.9" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">Метеоролог</text>
+<rect x="20" y="950" width="200" height="170" rx="0" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<text x="120.0" y="1031.2" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">Оператор</text>
+<text x="120.0" y="1048.7" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">телеметрии</text>
+<rect x="760" y="40" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,68 1060,68" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="60.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">1</text>
+<text x="910.0" y="115.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Аутентификация</text>
+<text x="910.0" y="131.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">и проверка роли</text>
+<rect x="760" y="200" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,228 1060,228" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="220.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">2</text>
+<text x="910.0" y="275.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Регистрация</text>
+<text x="910.0" y="291.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">и перенос пусков</text>
+<rect x="760" y="360" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,388 1060,388" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="380.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">3</text>
+<text x="910.0" y="435.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Поэтапная подготовка</text>
+<text x="910.0" y="451.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">и учёт расхода топлива</text>
+<rect x="760" y="520" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,548 1060,548" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="540.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">4</text>
+<text x="910.0" y="595.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Учёт площадок</text>
+<text x="910.0" y="611.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">и межпускового обслуживания</text>
+<rect x="760" y="680" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,708 1060,708" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="700.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">5</text>
+<text x="910.0" y="755.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Метеоконтроль</text>
+<text x="910.0" y="771.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">и проведение пуска</text>
+<rect x="760" y="840" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,868 1060,868" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="860.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">6</text>
+<text x="910.0" y="915.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Регистрация нештатных</text>
+<text x="910.0" y="931.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">ситуаций телеметрии</text>
+<rect x="760" y="1000" width="300" height="130" rx="10" fill="#fff" stroke="#000" stroke-width="1.4"/>
+<polyline points="760,1028 1060,1028" fill="none" stroke="#000" stroke-width="1.2"/>
+<text x="910.0" y="1020.0" font-family="Arial, Helvetica, sans-serif" font-size="14" text-anchor="middle" font-weight="bold" fill="#000">7</text>
+<text x="910.0" y="1075.4" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">Формирование</text>
+<text x="910.0" y="1091.7" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="normal" fill="#000">отчётов</text>
+<polyline points="1500,60 1880,60" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,106 1880,106" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,60 1500,106" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,60 1555,106" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="88.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D1</text>
+<text x="1565" y="88.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Пользователи и сессии</text>
+<polyline points="1500,200 1880,200" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,246 1880,246" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,200 1500,246" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,200 1555,246" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="228.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D8</text>
+<text x="1565" y="228.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Типы носителей и предельные метеоусловия</text>
+<polyline points="1500,380 1880,380" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,426 1880,426" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,380 1500,426" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,380 1555,426" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="408.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D2</text>
+<text x="1565" y="408.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Пуски и этапы подготовки</text>
+<polyline points="1500,560 1880,560" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,606 1880,606" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,560 1500,606" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,560 1555,606" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="588.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D3</text>
+<text x="1565" y="588.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Журнал переносов</text>
+<polyline points="1500,700 1880,700" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,746 1880,746" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,700 1500,746" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,700 1555,746" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="728.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D4</text>
+<text x="1565" y="728.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Партии и расход топлива</text>
+<polyline points="1500,460 1880,460" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,506 1880,506" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,460 1500,506" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,460 1555,506" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="488.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D5</text>
+<text x="1565" y="488.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Площадки и обслуживание</text>
+<polyline points="1500,820 1880,820" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,866 1880,866" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,820 1500,866" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,820 1555,866" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="848.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D6</text>
+<text x="1565" y="848.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Метеосводки</text>
+<polyline points="1500,960 1880,960" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,1006 1880,1006" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1500,960 1500,1006" fill="none" stroke="#000" stroke-width="1.3"/>
+<polyline points="1555,960 1555,1006" fill="none" stroke="#000" stroke-width="2.5"/>
+<text x="1527" y="988.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="middle" font-weight="bold" fill="#000">D7</text>
+<text x="1565" y="988.0" font-family="Arial, Helvetica, sans-serif" font-size="13" text-anchor="start" font-weight="normal" fill="#000">Каналы и нештатные ситуации</text>
+<polyline points="220,120.0 240,120.0 240,88.4 760,88.4" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="83.4" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">логин, пароль / сессия</text>
+<polyline points="220,180.0 257,180.0 257,279.0 760,279.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="274.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">данные пуска, перенос и причина / расписание</text>
+<polyline points="220,240.0 274,240.0 274,742.0 760,742.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="752" y="737.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">команда на пуск, наработка площадки</text>
+<polyline points="220,300.0 291,300.0 291,1079.0 760,1079.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="1074.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">период / сводные отчёты</text>
+<polyline points="220,480.0 308,480.0 308,108.8 760,108.8" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="103.8" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">логин, пароль / сессия</text>
+<polyline points="220,540.0 325,540.0 325,439.0 760,439.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="434.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">завершение этапа, партии, расход / ход подготовки</text>
+<polyline points="220,600.0 342,600.0 342,599.0 760,599.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="594.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">план и выполнение обслуживания / состояние площадок</text>
+<polyline points="220,776.6666666666666 359,776.6666666666666 359,129.2 760,129.2" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="124.2" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">логин, пароль / сессия</text>
+<polyline points="220,833.3333333333334 376,833.3333333333334 376,776.0 760,776.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="771.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">метеосводка / допуск или перенос</text>
+<polyline points="220,1006.6666666666666 393,1006.6666666666666 393,149.6 760,149.6" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="144.6" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">логин, пароль / сессия</text>
+<polyline points="220,1063.3333333333333 410,1063.3333333333333 410,919.0 760,919.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="752" y="914.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="end" font-weight="normal" fill="#000">канал, время, меры / журнал НС</text>
+<polyline points="1060,119.0 1290,119.0 1290,83.0 1500,83.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1068" y="115.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">учётная запись / хеш токена сессии</text>
+<polyline points="1500,217.33333333333334 1300,217.33333333333334 1300,253.5 1060,253.5" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="249.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">типы носителей</text>
+<polyline points="1060,279.0 1310,279.0 1310,390.85714285714283 1500,390.85714285714283" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="275.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">новый пуск, новое окно</text>
+<polyline points="1060,304.5 1320,304.5 1320,574.5 1500,574.5" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="300.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">запись о переносе</text>
+<polyline points="1060,413.5 1330,413.5 1330,395.7142857142857 1500,395.7142857142857" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1068" y="409.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">пуск и пройденные этапы / новый этап, статус</text>
+<polyline points="1500,474.5 1340,474.5 1340,439.0 1060,439.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="435.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">занятость и наработка площадки</text>
+<polyline points="1060,464.5 1350,464.5 1350,717.3333333333334 1500,717.3333333333334" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1068" y="460.5" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">партия, остаток / расход на пуск</text>
+<polyline points="1500,400.57142857142856 1360,400.57142857142856 1360,582.0 1060,582.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="578.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">наработка проведённых пусков</text>
+<polyline points="1060,616.0 1370,616.0 1370,483.0 1500,483.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1068" y="612.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">площадки / план, отметка о выполнении</text>
+<polyline points="1500,228.66666666666666 1380,228.66666666666666 1380,728.4 1060,728.4" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="724.4" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">предельные значения</text>
+<polyline points="1060,748.8 1390,748.8 1390,405.42857142857144 1500,405.42857142857144" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="744.8" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">перенос окна, факт пуска</text>
+<polyline points="1060,769.2 1400,769.2 1400,583.0 1500,583.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="765.2" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">перенос по метеоусловиям</text>
+<polyline points="1060,789.6 1410,789.6 1410,843.0 1500,843.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="785.6" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">метеосводка</text>
+<polyline points="1500,410.2857142857143 1420,410.2857142857143 1420,902.0 1060,902.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="898.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">проведённый пуск</text>
+<polyline points="1060,936.0 1430,936.0 1430,977.3333333333334 1500,977.3333333333334" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)" marker-start="url(#arrow)"/>
+<text x="1068" y="932.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">каналы / нештатная ситуация</text>
+<polyline points="1500,415.14285714285717 1440,415.14285714285717 1440,1045.0 1060,1045.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="1041.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">пуски за период</text>
+<polyline points="1500,491.5 1450,491.5 1450,1062.0 1060,1062.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="1058.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">загрузка площадок</text>
+<polyline points="1500,591.5 1460,591.5 1460,1079.0 1060,1079.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="1075.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">переносы по причинам</text>
+<polyline points="1500,728.6666666666666 1470,728.6666666666666 1470,1096.0 1060,1096.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="1092.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">расход по партиям</text>
+<polyline points="1500,988.6666666666666 1480,988.6666666666666 1480,1113.0 1060,1113.0" fill="none" stroke="#000" stroke-width="1.1" marker-end="url(#arrow)"/>
+<text x="1068" y="1109.0" font-family="Arial, Helvetica, sans-serif" font-size="11.5" text-anchor="start" font-weight="normal" fill="#000">нештатные ситуации</text>
+</svg>

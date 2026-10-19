@@ -1,0 +1,71 @@
+@startuml classes-mvc
+!pragma layout smetana
+top to bottom direction
+skinparam defaultFontName Arial
+skinparam defaultFontSize 12
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam packageStyle rectangle
+skinparam ArrowColor #333333
+hide empty members
+title Разделение классов по слоям MVC
+
+package "View — src/view" #EEF3FF {
+  class Pages <<module>> {
+    +launchesPage(ctx, data): string
+    +launchPage(ctx, data): string
+    +fuelPage() / padsPage()
+    +telemetryPage() / reportsPage()
+  }
+  class Layout <<module>> {
+    +layout(ctx, title, active, content)
+    +html`...`: SafeHtml (экранирование)
+  }
+}
+
+package "Controller — src/controller" #FFF6E5 {
+  class AuthController {
+    +loadUser() / requireAuth()
+    -login() / logout()
+  }
+  class LaunchController {
+    +routes(router)
+  }
+  class "FuelController\nWeatherController\nTelemetryController\nPadController\nReportController" as OtherControllers {
+    +routes(router)
+  }
+  class Common <<module>> {
+    +action(run, back)
+    +errorHandler(err, req, res)
+  }
+}
+
+package "Model — src/model" #EAF7EE {
+  class "LaunchService\nFuelService\nWeatherService\nTelemetryService\nPadService\nReportService\nAuthService" as Services <<services>> {
+    сценарии + проверка роли actor.require()
+    транзакции db.transaction()
+  }
+  class "Launch, PreparationStage, FuelBatch,\nLaunchPad, PadMaintenance, WeatherReport,\nWeatherCriterion, Incident, User, Report" as Entities <<entities>> {
+    бизнес-правила и валидация
+    исключения DomainError
+  }
+  class "LaunchRepository, PadRepository,\nFuelRepository, WeatherRepository,\nTelemetryRepository, UserRepository" as Repos <<repositories>> {
+    параметризованные SQL-запросы
+  }
+  class "SQLite (data/launch.db)" as DB <<database>>
+}
+
+Pages ..> Layout
+AuthController ..> Pages : loginPage
+LaunchController ..> Pages : формирует HTML
+OtherControllers ..> Pages
+LaunchController ..> Common
+OtherControllers ..> Common
+AuthController --> Services
+LaunchController --> Services : вызывает методы
+OtherControllers --> Services
+Services --> Entities : создаёт / восстанавливает
+Services --> Repos : загрузка / сохранение
+Repos --> Entities : restore(row)
+Repos --> DB
+@enduml

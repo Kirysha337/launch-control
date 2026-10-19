@@ -1,0 +1,153 @@
+@startuml classes-domain
+!pragma layout smetana
+skinparam defaultFontName Arial
+skinparam defaultFontSize 11
+skinparam shadowing false
+skinparam classAttributeIconSize 0
+skinparam ArrowColor #333333
+hide empty members
+title Диаграмма классов доменной модели (слой Model)
+
+enum LaunchStatus {
+  planned
+  preparing
+  ready
+  launched
+}
+class Launch {
+  -_id: number
+  -_payload: string
+  -_targetOrbit: Orbit
+  -_windowStart: string
+  -_windowEnd: string
+  -_status: LaunchStatus
+  -_completedStages: number
+  -_launchedAt: string
+  -_padHours: number
+  +{static} register(input, now): Launch
+  +{static} restore(row): Launch
+  +currentStage: PreparationStage
+  +startPreparation()
+  +completeStage(ctx): PreparationStage
+  +postpone(start, end, now): string
+  +conduct(padHours, violations, now)
+}
+abstract class PreparationStage {
+  +no: number
+  +title: string
+  +place: string
+  +checkCompletion(ctx: StageContext)
+}
+class AssemblyStage
+class TransportStage {
+  +checkCompletion(ctx)
+}
+class FuelingStage {
+  +checkCompletion(ctx)
+}
+class PrelaunchCheckStage
+class StageContext <<interface>> {
+  padOccupied, padLimit
+  padMaintenanceRequired
+  fuelKindsConsumed
+}
+
+class FuelBatch {
+  -_batchNo: string
+  -_kind: FuelKind
+  -_quantity: number
+  -_expiresOn: string
+  -_consumed: number
+  +remaining: number
+  +{static} create(input): FuelBatch
+  +isExpired(date): boolean
+  +consume(amount, date): number
+}
+class LaunchPad {
+  -_maxConcurrent: number
+  -_hoursNorm: number
+  -_cyclesNorm: number
+  +occupied: number
+  +hoursSince: number
+  +cyclesSince: number
+  +maintenanceRequired: boolean
+}
+class PadMaintenance {
+  -_kind: MaintenanceKind
+  -_plannedDate: string
+  -_doneAt: string
+  +{static} plan(input, today)
+  +complete(now)
+}
+
+class WeatherReport {
+  +windGround: number
+  +windAltitude: number
+  +temperature: number
+  +cloudiness: number
+  +thunderstorm: boolean
+  +{static} create(input, now)
+}
+abstract class WeatherCriterion {
+  +{abstract} check(report, limits): string | null
+}
+class GroundWindCriterion
+class AltitudeWindCriterion
+class TemperatureCriterion
+class CloudinessCriterion
+class ThunderstormCriterion
+class WeatherAssessment {
+  +{static} violations(report, limits): string[]
+}
+class Incident {
+  +channelId: number
+  +occurredAt: string
+  +measures: string
+  +{static} register(input, launchId, launchedAt, now)
+}
+class User {
+  +role: Role
+  +can(...roles): boolean
+  +require(...roles)
+}
+abstract class Report {
+  +build(period): ReportTable
+  #{abstract} rows(period)
+  #totals(rows)
+}
+class LaunchesByVehicleReport
+class FuelByBatchReport
+class PadLoadReport
+class IncidentsReport
+class PostponementsReport
+class DomainError
+class AccessDeniedError
+class NotFoundError
+
+Launch --> LaunchStatus
+Launch *-- "4" PreparationStage : этапы подготовки
+PreparationStage ..> StageContext
+PreparationStage <|-- AssemblyStage
+PreparationStage <|-- TransportStage
+PreparationStage <|-- FuelingStage
+PreparationStage <|-- PrelaunchCheckStage
+Launch "0..*" --> "1" LaunchPad : площадка
+LaunchPad "1" o-- "0..*" PadMaintenance
+Launch "1" o-- "0..*" Incident
+Launch "1" o-- "0..*" WeatherReport
+FuelBatch "1" ..> "0..*" Launch : расход по пуску
+WeatherAssessment o-- WeatherCriterion
+WeatherAssessment ..> WeatherReport
+WeatherCriterion <|-- GroundWindCriterion
+WeatherCriterion <|-- AltitudeWindCriterion
+WeatherCriterion <|-- TemperatureCriterion
+WeatherCriterion <|-- CloudinessCriterion
+WeatherCriterion <|-- ThunderstormCriterion
+Report <|-- LaunchesByVehicleReport
+Report <|-- FuelByBatchReport
+Report <|-- PadLoadReport
+Report <|-- IncidentsReport
+Report <|-- PostponementsReport
+DomainError <|-- AccessDeniedError
+DomainError <|-- NotFoundError
+@enduml
