@@ -4,6 +4,7 @@ import { POSTPONE_REASON_TITLES, POSTPONE_REASONS } from '../../model/entities/P
 import { FuelingStage, STAGES } from '../../model/entities/PreparationStage';
 import { Role } from '../../model/entities/User';
 import { WeatherLimits } from '../../model/entities/Weather';
+import { FORECAST_LEAD_HOURS, FORECAST_SOURCE_TITLES, ForecastAttempt } from '../../model/entities/WeatherForecast';
 import { ConsumptionRow } from '../../model/repositories/FuelRepository';
 import { PostponementRow, StageRow } from '../../model/repositories/LaunchRepository';
 import { ChannelRow, IncidentRow } from '../../model/repositories/TelemetryRepository';
@@ -22,6 +23,10 @@ export interface LaunchPageData {
   postponements: PostponementRow[];
   incidents: IncidentRow[];
   channels: ChannelRow[];
+  /** Лаба №4: попытки получить прогноз для текущего окна (с готовым списком нарушений). */
+  forecasts: (ForecastAttempt & { violations: string[] })[];
+  forecastWarning: string[];
+  manualForecastAllowed: boolean;
   today: string;
   now: string;
 }
@@ -136,6 +141,43 @@ export function launchPage(ctx: PageContext, d: LaunchPageData): string {
       </form>` : ''}
     </section>`;
 
+  const forecastCard = html`
+    <section class="card">
+      <h2>Прогноз внешней метеослужбы</h2>
+      <p class="limits">Прогноз по высотам запрашивается автоматически за ${FORECAST_LEAD_HOURS} ч до начала окна и сравнивается с теми же пределами.
+        Превышение даёт предупреждение о возможном переносе; решение о переносе принимает руководитель.</p>
+      <table class="table">
+        <thead><tr><th>Запрошен</th><th>Источник</th><th>Прогноз</th><th>Результат</th><th>Кто</th></tr></thead>
+        <tbody>
+          ${d.forecasts.map((a) => html`<tr>
+            <td>${fmtDateTime(a.requestedAt)}</td><td>${FORECAST_SOURCE_TITLES[a.source]}</td>
+            <td>${a.forecast ? html`ветер ${a.forecast.windGround} / ${a.forecast.windAltitude} м/с<small class="muted block">T ${a.forecast.temperature} °C · облачность ${a.forecast.cloudiness} · гроза ${a.forecast.thunderstorm ? 'да' : 'нет'}</small>` : html`<span class="muted">—</span>`}</td>
+            <td>${!a.forecast ? html`${chip('Служба недоступна', 'red')}<small class="viol">${a.note}</small>`
+              : a.violations.length ? html`${chip('Риск переноса', 'amber')}<small class="viol">${a.violations.join('; ')}</small>`
+              : chip('В пределах', 'green')}
+              ${a.source === 'manual' ? html`<small class="muted block">Основание: ${a.note}</small>` : ''}</td>
+            <td>${a.user ?? 'Система'}</td>
+          </tr>`)}
+          ${d.forecasts.length ? '' : html`<tr><td colspan="5" class="empty">Прогноз для текущего окна ещё не запрашивался</td></tr>`}
+        </tbody>
+      </table>
+      ${user.can(Role.Meteo, Role.Manager) && !launched ? html`
+      <form method="post" action="/launches/${l.id}/forecast" class="form form--inline">
+        <button class="btn">Запросить прогноз сейчас</button>
+      </form>` : ''}
+      ${user.can(Role.Meteo) && !launched && d.manualForecastAllowed ? html`
+      <h3 class="sub">Ручной ввод прогноза (служба недоступна)</h3>
+      <form method="post" action="/launches/${l.id}/forecast/manual" class="form form--inline">
+        <label>Ветер у земли, м/с <input name="windGround" type="number" step="0.1" min="0" required></label>
+        <label>Ветер на высотах, м/с <input name="windAltitude" type="number" step="0.1" min="0" required></label>
+        <label>Температура, °C <input name="temperature" type="number" step="0.1" required></label>
+        <label>Облачность, баллы <input name="cloudiness" type="number" min="0" max="10" step="1" required></label>
+        <label class="check"><input type="checkbox" name="thunderstorm"> Гроза</label>
+        <label class="wide">Основание (откуда данные) <input name="basis" required minlength="5" maxlength="300" placeholder="Например, радиозондирование 06:00, прогноз Гидрометцентра"></label>
+        <button class="btn btn--primary">Внести прогноз</button>
+      </form>` : ''}
+    </section>`;
+
   const postponeCard = html`
     <section class="card">
       <h2>Журнал переносов</h2>
@@ -180,6 +222,7 @@ export function launchPage(ctx: PageContext, d: LaunchPageData): string {
       </div>
       ${statusChip(l)}
     </div>
+    ${d.forecastWarning.length ? html`<div class="flash flash--warn">Предупреждение о возможном переносе по прогнозу: ${d.forecastWarning.join('; ')}</div>` : ''}
     <div class="facts">
       <div><span>Тип носителя</span><b>${l.vehicleType}</b></div>
       <div><span>Целевая орбита</span><b>${ORBIT_TITLES[l.targetOrbit]}</b></div>
@@ -191,6 +234,7 @@ export function launchPage(ctx: PageContext, d: LaunchPageData): string {
         <section class="card"><h2>Этапы подготовки</h2>${stepper}</section>
         ${incidentsCard}
         ${fuelCard}
+        ${forecastCard}
         ${weatherCard}
       </div>
       <div class="stack">

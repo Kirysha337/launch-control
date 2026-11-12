@@ -1,4 +1,5 @@
 import type { Request, Response, Router } from 'express';
+import { ForecastService } from '../model/services/ForecastService';
 import { FuelService } from '../model/services/FuelService';
 import { LaunchService } from '../model/services/LaunchService';
 import { PadService } from '../model/services/PadService';
@@ -17,6 +18,7 @@ export class LaunchController {
     private readonly weather: WeatherService,
     private readonly telemetry: TelemetryService,
     private readonly pads: PadService,
+    private readonly forecasts: ForecastService,
   ) {}
 
   routes(r: Router): void {
@@ -50,13 +52,18 @@ export class LaunchController {
       launches: this.launches.list(),
       vehicleTypes: this.launches.vehicleTypes(),
       pads: this.pads.list(),
+      forecastWarnings: new Set(this.launches.list().filter((l) => this.forecasts.warning(l.id).length).map((l) => l.id)),
     }));
   };
 
   private show = (req: Request, res: Response): void => {
     const id = idParam(req);
     const launch = this.launches.get(id);
+    const history = this.forecasts.history(id);
     res.send(launchPage(pageContext(req, res), {
+      forecasts: history.attempts.map((a) => ({ ...a, violations: a.forecast ? this.forecasts.violations(launch, a.forecast) : [] })),
+      forecastWarning: this.forecasts.warning(id),
+      manualForecastAllowed: history.manualAllowed,
       launch,
       stages: this.launches.stages(id),
       postponements: this.launches.postponements(id),

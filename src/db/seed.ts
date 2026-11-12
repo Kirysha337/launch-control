@@ -20,6 +20,12 @@ function at(days: number, time = '10:00'): string {
   return formatDateTime(d);
 }
 const day = (days: number) => at(days).slice(0, 10);
+/** Момент через заданное число часов, округлённый до 10 минут. */
+function inHours(hours: number): string {
+  const d = new Date(Date.now() + hours * 3_600_000);
+  d.setMinutes(Math.floor(d.getMinutes() / 10) * 10, 0, 0);
+  return formatDateTime(d);
+}
 const shift = (dateTime: string, minutes: number) => {
   const d = new Date(dateTime.replace(' ', 'T'));
   d.setMinutes(d.getMinutes() + minutes);
@@ -135,8 +141,9 @@ function seed(db: Db, auth: AuthService): void {
   tm(12, 1, 1, 'Потеря сигнала по каналу на 2 с на участке работы 1 ступени', 'Анализ по дублирующему каналу, замечание внесено в протокол');
 
   // --- текущие пуски ---
-  // готов к пуску: все этапы пройдены, топливо списано
-  const a1 = at(2, '09:20');
+  // готов к пуску: все этапы пройдены, топливо списано; окно через 20 ч — планировщик
+  // сразу запросит по нему прогноз метеослужбы (лаба №4)
+  const a1 = inHours(20);
   insLaunch.run(13, 2, 2, 'Метеор-М №2-5', 'ССО', a1, shift(a1, 15), 'ready', null, null, MANAGER);
   [-12, -7, -3, -1].forEach((d, i) => insStage.run(13, i + 1, at(d, '17:00'), ENGINEER));
   insFuel.run(13, 2, 77, at(-3, '11:00'), ENGINEER);

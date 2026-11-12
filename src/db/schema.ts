@@ -127,4 +127,23 @@ CREATE TABLE IF NOT EXISTS postponements (
   created_at        TEXT    NOT NULL,
   created_by        INTEGER NOT NULL REFERENCES users(id)
 );
+
+-- Лаба №4: прогнозы внешней метеослужбы и ручной ввод при её недоступности.
+-- Попытка без прогноза (служба не ответила) хранится с пустыми показателями и причиной в note.
+CREATE TABLE IF NOT EXISTS weather_forecasts (
+  id            INTEGER PRIMARY KEY,
+  launch_id     INTEGER NOT NULL REFERENCES launches(id),
+  window_start  TEXT    NOT NULL,
+  requested_at  TEXT    NOT NULL,
+  source        TEXT    NOT NULL CHECK (source IN ('api','manual')),
+  wind_ground   REAL,
+  wind_altitude REAL,
+  temperature   REAL,
+  cloudiness    INTEGER,
+  thunderstorm  INTEGER CHECK (thunderstorm IN (0,1)),
+  note          TEXT    NOT NULL DEFAULT '',
+  recorded_by   INTEGER REFERENCES users(id),
+  CHECK (source = 'api' OR wind_ground IS NOT NULL)
+);
+CREATE INDEX IF NOT EXISTS ix_weather_forecasts_launch ON weather_forecasts(launch_id, window_start);
 `;

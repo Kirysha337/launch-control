@@ -2,5 +2,18 @@ node_modules/
 dist/
 data/*.db
 data/*.db-*
-docs/api/
 .DS_Store
+
+# документация и модели в репозиторий не попадают
+docs/
+
+# служебные файлы AI-ассистентов
+.claude/
+CLAUDE.md
+CLAUDE.local.md
+AGENTS.md
+.cursor/
+.cursorrules
+.aider*
+.copilot/
+.github/copilot-instructions.md

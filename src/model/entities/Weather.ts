@@ -10,12 +10,30 @@ export interface WeatherLimits {
   maxCloudiness: number;
 }
 
+/**
+ * Метеоданные, которые сравниваются с пределами: фактическая сводка метеоролога
+ * или прогноз внешней метеослужбы (лаба №4). Критерии работают с этим интерфейсом,
+ * поэтому для обоих источников действует единый критерий решения.
+ */
+export interface WeatherReading {
+  readonly windGround: number;
+  readonly windAltitude: number;
+  readonly temperature: number;
+  readonly cloudiness: number;
+  readonly thunderstorm: boolean;
+}
+
+/** Значение флажка формы («on», «1», true). */
+export function parseFlag(value: unknown): boolean {
+  return value === true || value === 'on' || value === '1' || value === 1;
+}
+
 export interface WeatherInput {
   measuredAt: unknown; windGround: unknown; windAltitude: unknown; temperature: unknown; cloudiness: unknown; thunderstorm: unknown;
 }
 
 /** Метеосводка для пуска. */
-export class WeatherReport {
+export class WeatherReport implements WeatherReading {
   private constructor(
     readonly measuredAt: string,
     readonly windGround: number,
@@ -35,7 +53,7 @@ export class WeatherReport {
       requireNumber(input.windAltitude, 'Ветер на высотах, м/с', { min: 0, max: 150 }),
       requireNumber(input.temperature, 'Температура, °C', { min: -70, max: 60 }),
       requireNumber(input.cloudiness, 'Облачность, баллы', { min: 0, max: 10, integer: true }),
-      input.thunderstorm === true || input.thunderstorm === 'on' || input.thunderstorm === '1' || input.thunderstorm === 1,
+      parseFlag(input.thunderstorm),
     );
   }
 
@@ -47,23 +65,23 @@ export class WeatherReport {
 /** Критерий метеоусловий. Каждый наследник проверяет один параметр. */
 export abstract class WeatherCriterion {
   /** @returns описание нарушения или null, если параметр в норме */
-  abstract check(report: WeatherReport, limits: WeatherLimits): string | null;
+  abstract check(reading: WeatherReading, limits: WeatherLimits): string | null;
 }
 
 export class GroundWindCriterion extends WeatherCriterion {
-  check(r: WeatherReport, l: WeatherLimits) {
+  check(r: WeatherReading, l: WeatherLimits) {
     return r.windGround > l.maxWindGround ? `ветер у земли ${r.windGround} м/с > ${l.maxWindGround}` : null;
   }
 }
 
 export class AltitudeWindCriterion extends WeatherCriterion {
-  check(r: WeatherReport, l: WeatherLimits) {
+  check(r: WeatherReading, l: WeatherLimits) {
     return r.windAltitude > l.maxWindAltitude ? `ветер на высотах ${r.windAltitude} м/с > ${l.maxWindAltitude}` : null;
   }
 }
 
 export class TemperatureCriterion extends WeatherCriterion {
-  check(r: WeatherReport, l: WeatherLimits) {
+  check(r: WeatherReading, l: WeatherLimits) {
     if (r.temperature < l.minTemperature) return `температура ${r.temperature} °C < ${l.minTemperature}`;
     if (r.temperature > l.maxTemperature) return `температура ${r.temperature} °C > ${l.maxTemperature}`;
     return null;
@@ -71,18 +89,18 @@ export class TemperatureCriterion extends WeatherCriterion {
 }
 
 export class CloudinessCriterion extends WeatherCriterion {
-  check(r: WeatherReport, l: WeatherLimits) {
+  check(r: WeatherReading, l: WeatherLimits) {
     return r.cloudiness > l.maxCloudiness ? `облачность ${r.cloudiness} балл. > ${l.maxCloudiness}` : null;
   }
 }
 
 export class ThunderstormCriterion extends WeatherCriterion {
-  check(r: WeatherReport) {
+  check(r: WeatherReading) {
     return r.thunderstorm ? 'грозовая активность' : null;
   }
 }
 
-/** Оценка сводки по всем критериям. Новый критерий добавляется в список без изменения остального кода. */
+/** Оценка метеоданных по всем критериям. Новый критерий добавляется в список без изменения остального кода. */
 export class WeatherAssessment {
   private static readonly criteria: readonly WeatherCriterion[] = [
     new GroundWindCriterion(),
@@ -93,9 +111,9 @@ export class WeatherAssessment {
   ];
 
   /** Список нарушений предельных значений (пустой — пуск по погоде разрешён). */
-  static violations(report: WeatherReport, limits: WeatherLimits): string[] {
+  static violations(reading: WeatherReading, limits: WeatherLimits): string[] {
     return WeatherAssessment.criteria
-      .map((c) => c.check(report, limits))
+      .map((c) => c.check(reading, limits))
       .filter((v): v is string => v !== null);
   }
 }

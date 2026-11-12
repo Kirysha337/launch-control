@@ -35,14 +35,15 @@ export function idParam(req: Request, name = 'id'): number {
 /**
  * Обёртка для POST-действий: вызывает Model, показывает результат или понятную ошибку
  * через сообщение на странице и возвращает пользователя назад (шаблон Post/Redirect/Get).
+ * Действие может быть асинхронным (лаба №4: запрос к внешней метеослужбе).
  */
 export function action(
-  run: (req: Request, res: Response) => string | Flash,
+  run: (req: Request, res: Response) => string | Flash | Promise<string | Flash>,
   back: (req: Request) => string,
 ) {
-  return (req: Request, res: Response, next: NextFunction) => {
+  return async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const result = run(req, res);
+      const result = await run(req, res);
       if (typeof result === 'string') setFlash(res, 'ok', result);
       else setFlash(res, result.type, result.text);
     } catch (e) {

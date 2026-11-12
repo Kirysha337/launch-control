@@ -3,6 +3,7 @@ import express from 'express';
 import path from 'node:path';
 import { AuthController } from './controller/AuthController';
 import { errorHandler, pageContext } from './controller/common';
+import { ForecastController } from './controller/ForecastController';
 import { FuelController } from './controller/FuelController';
 import { LaunchController } from './controller/LaunchController';
 import { PadController } from './controller/PadController';
@@ -11,6 +12,8 @@ import { TelemetryController } from './controller/TelemetryController';
 import { WeatherController } from './controller/WeatherController';
 import { openDatabase } from './db/database';
 import { seedIfEmpty } from './db/seed';
+import { HttpMeteoForecastProvider } from './model/integration/HttpMeteoForecastProvider';
+import { ForecastRepository } from './model/repositories/ForecastRepository';
 import { FuelRepository } from './model/repositories/FuelRepository';
 import { LaunchRepository } from './model/repositories/LaunchRepository';
 import { PadRepository } from './model/repositories/PadRepository';
@@ -18,6 +21,8 @@ import { TelemetryRepository } from './model/repositories/TelemetryRepository';
 import { UserRepository } from './model/repositories/UserRepository';
 import { WeatherRepository } from './model/repositories/WeatherRepository';
 import { AuthService } from './model/services/AuthService';
+import { ForecastScheduler } from './model/services/ForecastScheduler';
+import { ForecastService } from './model/services/ForecastService';
 import { FuelService } from './model/services/FuelService';
 import { LaunchService } from './model/services/LaunchService';
 import { PadService } from './model/services/PadService';
@@ -45,6 +50,12 @@ const weather = new WeatherService(db, weatherRepo, launchRepo);
 const telemetry = new TelemetryService(telemetryRepo, launchRepo);
 const pads = new PadService(padRepo);
 const reports = new ReportService(db);
+// Лаба №4: внешняя метеослужба космодрома
+const meteo = new HttpMeteoForecastProvider(
+  process.env.METEO_SERVICE_URL ?? 'http://localhost:3100',
+  Number(process.env.METEO_TIMEOUT_MS ?? 10_000),
+);
+const forecasts = new ForecastService(new ForecastRepository(db), launchRepo, meteo);
 
 if (!isProduction) seedIfEmpty(db, auth);
 
@@ -60,7 +71,8 @@ app.use(authController.loadUser);
 const router = express.Router();
 authController.routes(router);
 router.use(authController.requireAuth);
-new LaunchController(launches, fuel, weather, telemetry, pads).routes(router);
+new LaunchController(launches, fuel, weather, telemetry, pads, forecasts).routes(router);
+new ForecastController(forecasts).routes(router);
 new FuelController(fuel).routes(router);
 new WeatherController(weather).routes(router);
 new TelemetryController(telemetry).routes(router);
@@ -72,3 +84,4 @@ app.use((req, res) => { res.status(404).send(errorPage(pageContext(req, res), 40
 app.use(errorHandler);
 
 app.listen(PORT, () => console.log(`ЦУП «Старт» запущен: http://localhost:${PORT}`));
+if (process.env.FORECAST_SCHEDULER !== 'off') new ForecastScheduler(forecasts).start();

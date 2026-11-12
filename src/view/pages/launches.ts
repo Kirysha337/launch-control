@@ -20,7 +20,7 @@ export function stageDots(l: Launch): SafeHtml {
 
 export function launchesPage(
   ctx: PageContext,
-  data: { launches: Launch[]; vehicleTypes: VehicleTypeRow[]; pads: LaunchPad[] },
+  data: { launches: Launch[]; vehicleTypes: VehicleTypeRow[]; pads: LaunchPad[]; forecastWarnings: Set<number> },
 ): string {
   const active = data.launches.filter((l) => l.status !== LaunchStatus.Launched);
   const done = data.launches.filter((l) => l.status === LaunchStatus.Launched);
@@ -42,7 +42,7 @@ export function launchesPage(
           <td>${l.pad}</td>
           <td class="mono">${isDone ? fmtDateTime(l.launchedAt) : html`${fmtDateTime(l.windowStart)}<small> – ${l.windowEnd.slice(11)}</small>`}</td>
           <td>${stageDots(l)}<small class="muted stage-name">${l.currentStage?.title ?? ''}</small></td>
-          <td>${statusChip(l)}</td>
+          <td>${statusChip(l)}${data.forecastWarnings.has(l.id) ? html` ${chip('риск переноса', 'amber')}` : ''}</td>
         </tr>`)}
         ${list.length ? '' : html`<tr><td colspan="8" class="empty">Нет пусков</td></tr>`}
       </tbody>

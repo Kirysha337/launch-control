@@ -1,14 +1,16 @@
 {
   "name": "launch-control",
   "version": "1.0.0",
-  "description": "Центр управления космическими пусками: учёт пусков, подготовки, топлива, площадок, телеметрии и метеообеспечения (MVC, TypeScript, SQLite)",
+  "description": "Центр управления космическими пусками: учёт пусков, подготовки, топлива, площадок, телеметрии и метеообеспечения (MVC, TypeScript, SQLite); лаба №4 — прогноз внешней метеослужбы с таймаутом и ручным вводом",
   "main": "src/app.ts",
   "scripts": {
     "start": "tsx src/app.ts",
     "dev": "tsx watch src/app.ts",
     "seed": "tsx src/db/seed.ts",
     "typecheck": "tsc --noEmit",
-    "docs": "typedoc"
+    "docs": "typedoc",
+    "meteo-mock": "tsx tools/meteo-mock.ts",
+    "test": "node --import tsx --test test/*.test.ts"
   },
   "author": "",
   "license": "MIT",
